@@ -36,7 +36,7 @@ public class LambdaExercises {
 
         CoffeeMaker myCoffeeMaker1 = (int water, String coffeeType) -> {
             System.out.println("Coffee brewing...");
-            return "coffee brewed";
+            return "coffee brewedc";
         };
 
         CoffeeMaker myCoffeeMaker2 = (water, coffeeType) -> "coffee brewed";
