@@ -18,5 +18,17 @@ public class LambdaExercises {
                 System.out.println("Anonimowy Silnoręki");
             }
         };
+
+
+        BoysDontCry firstLambda = () -> {}; // implementacja metody z interface'u
+        BoysDontCry secondLambda = () -> System.out.println("Lambda Silnoręki!");
+        secondLambda.silnoreki(); //muszę wywołać metodę na obiekcie klasy abstrakcyjnej
+
+        BoysDontCry thirdLambda = () -> {
+            System.out.println("First");
+            System.out.println("Second");
+        };
+
+
     }
 }
