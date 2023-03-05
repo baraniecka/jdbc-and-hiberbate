@@ -7,5 +7,6 @@ public interface BoysDontCry {
     void silnoreki();
 
     //metoda domyślna nie jest abstrakcyjna - ma ciało
-    default void cry() {}
+    default void cry() {
+    }
 }
