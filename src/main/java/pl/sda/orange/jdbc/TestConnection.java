@@ -22,6 +22,7 @@ public class TestConnection {
                 FROM TEST
                 """;
 
+        ResultSet queryResult = null;
 
         //klasa umożliwiająca stworzenie połączenia z bazą danych
         try {
@@ -47,7 +48,7 @@ public class TestConnection {
             //ResultSet - tabelka odpowiedzi
             //resultSet contains query result data as simple table
             //we need to iterate over result to got data
-            ResultSet queryResult = queryStatement.executeQuery(query);
+            queryResult = queryStatement.executeQuery(query);
 
             while (queryResult.next()) {
                 System.out.println("id: " + queryResult.getInt(1));
@@ -57,6 +58,19 @@ public class TestConnection {
             System.out.println("got exception: " + e);
             e.printStackTrace();
         }
+        //zamykam dostęp do zasobów bazy danych na ostatnim kroku - jest ok
+        finally {
+            System.out.println("Finally I know it :)");
+            if (queryResult != null) {
+                try {
+                    queryResult.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+
+        System.out.println("The end.");
     }
 }
 
