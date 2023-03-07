@@ -2,6 +2,7 @@ package pl.sda.orange.jdbc;
 
 import pl.sda.orange.jdbc.config.H2Config;
 
+import javax.sql.DataSource;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +13,10 @@ import static java.sql.DriverManager.getConnection;
 public class TestConnection {
 
     public static void main(String[] args) {
+
+        String className = TestConnection.class.getName();
+        System.out.println(className);
+
         String query = """ 
                 SELECT ID, NAME
                 FROM TEST
@@ -36,17 +41,18 @@ public class TestConnection {
             //statement
             //pojedyncze zapytanie do bazy danych
             //statement is used to send queries to db with existing connection
-           Statement queryStatement = h2Connection.createStatement();
+            Statement queryStatement = h2Connection.createStatement();
 
-           //zapytanie sql
+            //zapytanie sql
             //ResultSet - tabelka odpowiedzi
             //resultSet contains query result data as simple table
             //we need to iterate over result to got data
-           ResultSet queryResult = queryStatement.executeQuery(query);
-           while (queryResult.next()) {
-               System.out.println("id: " + queryResult.getInt(1));
-               System.out.println("name: " + queryResult.getString(2));
-           }
+            ResultSet queryResult = queryStatement.executeQuery(query);
+
+            while (queryResult.next()) {
+                System.out.println("id: " + queryResult.getInt(1));
+                System.out.println("name: " + queryResult.getString(2));
+            }
         } catch (SQLException e) {
             System.out.println("got exception: " + e);
             e.printStackTrace();
