@@ -27,8 +27,14 @@ public class CarDao implements DataAccess<Car, Long> {
        String saveQuery;
         if (car.id() != null){
             //update
+            saveQuery = """
+                    UPDATE CARS
+                    SET COLOUR = ?, BRAND = ?, MODEL = ?
+                    WHERE ID = ?
+                    """;
+
         }
-        else{
+        else {
             //insert
             //STWORASAENIE NOEWGO OBIEKTU PRPEZZ COŚTAM NOWEGO OBIEKTU
             saveQuery = """
@@ -36,18 +42,24 @@ public class CarDao implements DataAccess<Car, Long> {
                     (COLOUR, BRAND, MODEL)
                     VALUES (?, ?, ?)
                     """;
+        }
             try {
                 PreparedStatement queryStatement = dbConnection.prepareStatement(saveQuery);
                 queryStatement.setString(1, car.colour());
                 queryStatement.setString(2, car.brand());
                 queryStatement.setString(3, car.model());
+               if (car.id() !=null){
+                   queryStatement.setLong(4, car.id());
+               }
+
+
                 int numberOfTouchedRecords = queryStatement.executeUpdate();
                 System.out.println("Number of touched records: " + numberOfTouchedRecords);
             } catch (SQLException e) {
                 System.out.println("Unexpected sql exception occurred");
                 e.printStackTrace();
             }
-        }
+
 
     }
 
